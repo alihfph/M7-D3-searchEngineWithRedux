@@ -53,12 +53,13 @@ const FavouriteJob = ({ booksInTheCart, removeFromCart }) => (
                     <div>
                       <Image
                         className="d-none d-md-block"
-                        height="50"
+                        height="40"
                         alt={jobDetails.company}
                         src={jobDetails.company_logo}
                       />
                       <Button
                         variant="danger"
+                        className="mt-5"
                         height="20"
                         onClick={() => removeFromCart(i)}
                       >

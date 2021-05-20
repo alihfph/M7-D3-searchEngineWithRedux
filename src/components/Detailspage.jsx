@@ -39,7 +39,8 @@ class Detailspage extends Component {
             <>
               <Col xs={12} className="d-flex align-items-center my-4">
                 <Image
-                  className="header-img me-0"
+                  height="180"
+                  className="d-none d-md-block ml-3"
                   src={this.state.jobDetails.company_logo}
                 />
               </Col>

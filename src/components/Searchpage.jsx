@@ -78,7 +78,7 @@ class Searchpage extends React.Component {
                   onChange={this.handleChange}
                 />
               </div>
-              <Form.Control type="submit" value="Submit" />
+              <Form.Control type="submit" value="Submit" className="btn btn-primary" />
             </Form>
 
             {this.props.searchjobs.result.map((r) => (

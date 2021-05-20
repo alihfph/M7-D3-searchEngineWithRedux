@@ -1,4 +1,4 @@
-import { Row, Button, Col } from "react-bootstrap";
+import { Container, Row, Button, Col } from "react-bootstrap";
 import FormControl from "react-bootstrap/FormControl";
 import { withRouter } from "react-router-dom";
 import { ImHeart } from "react-icons/im";
@@ -25,8 +25,8 @@ class JobIndicator extends Component {
 
   render() {
     return (
-      <div>
-        <Row className="mt-5 mx-5">
+      <Container>
+        <Row className="mx-5 mt-5">
           <Col>
             {this.props.userName ? (
               <>
@@ -64,7 +64,7 @@ class JobIndicator extends Component {
             )}
           </Col>
         </Row>
-      </div>
+      </Container>
     );
   }
 }
