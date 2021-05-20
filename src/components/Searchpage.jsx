@@ -9,10 +9,17 @@ import {
   Card,
   Button,
 } from "react-bootstrap";
-
+import { connect } from "react-redux";
+import { getjobsAction } from "../actions";
 import { Link } from "react-router-dom";
 
-export default class Searchpage extends React.Component {
+const mapStateToProps = (state) => state;
+
+const mapDispatchToProps = (dispatch) => ({
+  getJobs: (value) => dispatch(getjobsAction(value)),
+});
+
+class Searchpage extends React.Component {
   state = {
     description: "",
     location: "",
@@ -24,21 +31,31 @@ export default class Searchpage extends React.Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = async (e) => {
-    e.preventDefault();
-    const { description, location } = this.state;
-
-    const response = await fetch(
-      `https://strive-proxy.herokuapp.com/https://jobs.github.com/positions.json?description=${description}&location=${location}`
-    );
-    const result = await response.json();
-    console.log(result);
-    this.setState({
-      result,
-    });
+  componentDidMount = async (e) => {
+    this.props.getJobs(true);
   };
+
+  handleSubmit = async (e) => {
+    e.preventDefault()
+    const { description, location } = this.state;
+    this.props.getJobs({ description, location });
+  };
+
+  // handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const { description, location } = this.state;
+
+  //   const response = await fetch(
+  //     `https://strive-proxy.herokuapp.com/https://jobs.github.com/positions.json?description=${description}&location=${location}`
+  //   );
+  //   const result = await response.json();
+  //   console.log(result);
+  //   this.setState({
+  //     result,
+  //   });
+  // };
   render() {
-    console.log(this.state);
+    console.log(this.props);
 
     return (
       <Container>
@@ -64,7 +81,7 @@ export default class Searchpage extends React.Component {
               <Form.Control type="submit" value="Submit" />
             </Form>
 
-            {this.state.result.map((r) => (
+            {this.props.searchjobs.result.map((r) => (
               <Card className="mb-3">
                 <Card.Body>
                   <div className="d-flex justify-content-between">
@@ -122,3 +139,4 @@ export default class Searchpage extends React.Component {
     );
   }
 }
+export default connect(mapStateToProps, mapDispatchToProps)(Searchpage);

@@ -1,9 +1,10 @@
-import Button from "react-bootstrap/Button";
+import { Row, Button, Col } from "react-bootstrap";
 import FormControl from "react-bootstrap/FormControl";
 import { withRouter } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
+import { ImHeart } from "react-icons/im";
 import { connect } from "react-redux";
 import { Component } from "react";
+import { Link } from "react-router-dom";
 import { setUserNameAction } from "../actions";
 
 const mapStateToProps = (state) => ({
@@ -24,38 +25,45 @@ class JobIndicator extends Component {
 
   render() {
     return (
-      <div className="ml-auto mt-2">
-        {this.props.userName ? (
-          <>
-            <span className="mr-2">Welcome {this.props.userName}!</span>
-            <Button
-              color="primary"
-              onClick={() => this.props.history.push("/favourite")}
-            >
-              
-              <FaShoppingCart />
-              <span className="ml-2">{this.props.productsLength}</span>
-            </Button>
-
-          </>
-        ) : (
-          <FormControl
-            placeholder="Username"
-            aria-label="Username"
-            aria-describedby="basic-addon1"
-            value={this.state.inputValue}
-            onChange={(e) =>
-              this.setState({ inputValue: e.currentTarget.value })
-            }
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                console.log("you just pressed enter");
-                // now we're going to dispatch my action
-                this.props.setUserName(this.state.inputValue);
-              }
-            }}
-          />
-        )}
+      <div>
+        <Row className="mt-5 mx-5">
+          <Col>
+            {this.props.userName ? (
+              <>
+                <span className="mx-3">Welcome {this.props.userName}..!</span>
+                <Link to="/favourites">
+                  <Button
+                    color="primary"
+                    // onClick={() => this.props.history.push("/favourite")}
+                  >
+                    <ImHeart />
+                    <span className="ml-2">
+                      {" "}
+                      Your saved jobs {this.props.productsLength}
+                    </span>
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <FormControl
+                placeholder="Username"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                value={this.state.inputValue}
+                onChange={(e) =>
+                  this.setState({ inputValue: e.currentTarget.value })
+                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    console.log("you just pressed enter");
+                    // now we're going to dispatch my action
+                    this.props.setUserName(this.state.inputValue);
+                  }
+                }}
+              />
+            )}
+          </Col>
+        </Row>
       </div>
     );
   }

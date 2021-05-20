@@ -1,13 +1,13 @@
 import { Component } from "react";
 import { Container, Col, Image, Row, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { addToCartAction } from "../actions/index.js";
+import { addToCartActionWithThunk } from "../actions/index.js";
 
 const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = (dispatch) => ({
   addToCart: (jobDetails) => {
-    dispatch(addToCartAction(jobDetails)); // dispatch({ type: "ADD_TO_CART", payload: jobDetails})
+    dispatch(addToCartActionWithThunk(jobDetails)); // dispatch({ type: "ADD_TO_CART", payload: jobDetails})
   },
 });
 
@@ -35,21 +35,10 @@ class Detailspage extends Component {
     return (
       <Container>
         <Row>
-        {this.props.user.firstName ? (
-                  <Button
-                    color="primary"
-                    onClick={() => this.props.addToCart(this.state.jobDetails)}
-                  >
-                    ADD TO CART
-                  </Button>
-                ) : (
-                  <span>You need to login for adding this to the cart</span>
-                )}
           {jobDetails && (
             <>
               <Col xs={12} className="d-flex align-items-center my-4">
                 <Image
-                  fluid
                   className="header-img me-0"
                   src={this.state.jobDetails.company_logo}
                 />
@@ -70,6 +59,16 @@ class Detailspage extends Component {
                 />
               </Col>
             </>
+          )}
+          {this.props.user.firstName ? (
+            <Button
+              color="primary"
+              onClick={() => this.props.addToCart(this.state.jobDetails)}
+            >
+              Save this Job
+            </Button>
+          ) : (
+            <span>You need to login for adding this to the cart</span>
           )}
         </Row>
       </Container>

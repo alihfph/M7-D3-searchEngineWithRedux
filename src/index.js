@@ -9,7 +9,7 @@ import configureStore from "./store/index.js";
 
 ReactDOM.render(
   // <React.StrictMode>
-  <Provider store={configureStore}>
+  <Provider store={configureStore()}>
     <App />
   </Provider>,
   // </React.StrictMode>,
